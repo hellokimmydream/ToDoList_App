@@ -1,16 +1,22 @@
 <script setup>
 import { ref } from "vue";
 import ListToDo from "../components/ListToDo.vue";
+import CreateToDo from "../components/CreateToDo.vue";
 
-defineProps({
-  msg: String,
-});
+const todos = ref([]);
 
-const count = ref(0);
+function addTodo(todoText) {
+  todos.value.push({
+    id: Date.now(),
+    text: todoText,
+    done: false,
+  });
+}
 </script>
 
 <template>
-  <ListToDo />
+  <CreateToDo @add-todo="addTodo"></CreateToDo>
+  <ListToDo v-bind:todos="todos"></ListToDo>
 </template>
 
 <style scoped>

@@ -1,12 +1,39 @@
 <script setup>
+import { ref, onMounted } from "vue";
 import Home from "./views/Home.vue";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
+import CreateToDo from "./components/CreateToDo.vue";
+import ListToDo from "./components/ListToDo.vue";
+
+// les données
+const todos = ref([]);
+// lire depuis le local storage au chargement
+// quand le composant se charge, regarde si todos existe, si oui = alors le transforme en tableau JS
+onMounted(() => {
+  const storedTodos = localStorage.getItem("todos");
+  if (storedTodos) {
+    todos.value = JSON.parse(storedTodos);
+  }
+});
+
+// fonction save todos
+function saveTodos() {
+  localStorage.setItem("todos", JSON.stringify(todos.value));
+
+  // a supprimer : const todos = ref([{ id: 1, text: "test todo", done: false }]);
+}
 </script>
 
 <template>
   <Header></Header>
-  <Home></Home>
+  <Home>
+    <ListToDo>
+      <CreateToDo>
+        <!-- <button @click="saveTodos">TEST SAVE</button> -->
+      </CreateToDo>
+    </ListToDo>
+  </Home>
   <Footer></Footer>
 </template>
 

@@ -1,5 +1,7 @@
 <template>
-  <header class="header"></header>
+  <header class="header">
+    <h1>To Do List</h1>
+  </header>
 </template>
 
 <script setup></script>
