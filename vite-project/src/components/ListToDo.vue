@@ -2,13 +2,19 @@
 <template>
   <ul>
     <li v-for="todo in todos" v-bind:key="todo.id">
-      <input type="checkbox" v-model="todo.done" />
+      <input
+        type="checkbox"
+        v-bind:checked="todo.done"
+        @change="(e) => emit('toggleTodo', todo.id, e.target.checked)"
+      />
       <span
         v-bind:style="{ textDecoration: todo.done ? 'line-through' : 'none' }"
       >
         {{ todo.text }}</span
       >
-      <button class="btnDelete" @click="removeTask(todo.id)">Delete</button>
+      <button class="btnDelete" @click="emit('removeTodo', todo.id)">
+        Delete
+      </button>
     </li>
   </ul>
 </template>
@@ -16,10 +22,10 @@
 <!-- js dans script-->
 <script setup>
 const props = defineProps({
-  todos: Array,
+  todos: { type: Array, required: true },
 });
 
-const emit = defineEmits(["removeTodo"]);
+const emit = defineEmits(["removeTodo", "toggleTodo"]);
 
 function removeTask(id) {
   emit("removeTodo", id);

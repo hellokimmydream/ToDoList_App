@@ -15,10 +15,9 @@ const newTodo = ref("");
 
 function soumettreToDo() {
   const value = newTodo.value.trim();
-  if (value !== "") {
-    emit("addTodo", value);
-    newTodo.value = "";
-  }
+  if (!value) return;
+  emit("addTodo", value);
+  newTodo.value = "";
 }
 </script>
 
@@ -43,6 +42,6 @@ function soumettreToDo() {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  gap: 10px;
 }
 </style>
