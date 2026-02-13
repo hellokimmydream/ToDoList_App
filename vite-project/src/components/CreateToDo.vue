@@ -1,8 +1,8 @@
 <!--html dans template , condition , boucle , evenement-->
 <template>
-  <form @submit.prevent="soumettreToDo">
+  <form class="formNewTache" @submit.prevent="soumettreToDo">
     <input v-model="newTodo" type="text" placeholder="Nouvelle tâche" />
-    <button>Ajouter</button>
+    <button class="btnAdd">Ajouter</button>
   </form>
 </template>
 
@@ -24,5 +24,22 @@ function soumettreToDo() {
 <style lang="css" scoped>
 .completed {
   text-decoration: line-through;
+}
+
+.btnAdd {
+  margin-left: 10px;
+  background-color: #e7e7e7;
+  max-height: 28px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.formNewTache {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

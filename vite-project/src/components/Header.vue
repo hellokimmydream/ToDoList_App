@@ -12,8 +12,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #222;
+  background-color: #cacaca;
   color: white;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  max-height: 100px;
 }
 
 .logo-image img {

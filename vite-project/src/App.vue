@@ -20,8 +20,11 @@ onMounted(() => {
 // fonction save todos
 function saveTodos() {
   localStorage.setItem("todos", JSON.stringify(todos.value));
+}
 
-  // a supprimer : const todos = ref([{ id: 1, text: "test todo", done: false }]);
+// pour le btn delete de chaque todo
+function deleteTodo(id) {
+  todos.value = todos.value.filter((todo) => todo.id !== id);
 }
 </script>
 

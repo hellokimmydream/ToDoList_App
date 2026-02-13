@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <p>© 2026 Camille Rais - ToDoList</p>
+    <p class="credit">© 2026 Camille Rais - ToDoList</p>
   </footer>
 </template>
 
@@ -8,10 +8,17 @@
 
 <style scoped>
 .footer {
-  text-align: center;
   padding: 20px;
-  background-color: #222;
+  background-color: #cacaca;
   color: white;
   margin-top: 50px;
+  max-height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.credit {
+  font-size: small;
 }
 </style>
