@@ -10,12 +10,13 @@
 <script setup>
 import { ref } from "vue";
 
-const emitAddTodo = defineEmits(["addTodo"]);
+const emit = defineEmits(["addTodo"]);
 const newTodo = ref("");
 
 function soumettreToDo() {
-  if (newTodo.value.trim() !== "") {
-    emitAddTodo("addTodo", newTodo.value);
+  const value = newTodo.value.trim();
+  if (value !== "") {
+    emit("addTodo", value);
     newTodo.value = "";
   }
 }
@@ -28,12 +29,13 @@ function soumettreToDo() {
 
 .btnAdd {
   margin-left: 10px;
-  background-color: #e7e7e7;
+  background-color: #e2e2e2b6;
   max-height: 28px;
   display: flex;
   text-align: center;
   align-items: center;
   justify-content: center;
+  width: 80px;
 }
 
 .formNewTache {
@@ -41,5 +43,6 @@ function soumettreToDo() {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px;
 }
 </style>

@@ -23,8 +23,8 @@ function saveTodos() {
 }
 
 // pour le btn delete de chaque todo
-function deleteTodo(id) {
-  todos.value = todos.value.filter((todo) => todo.id !== id);
+function deleteTodo(index) {
+  todos.value.splice(index, 1);
 }
 </script>
 
@@ -32,9 +32,7 @@ function deleteTodo(id) {
   <Header></Header>
   <Home>
     <ListToDo>
-      <CreateToDo>
-        <!-- <button @click="saveTodos">TEST SAVE</button> -->
-      </CreateToDo>
+      <CreateToDo> </CreateToDo>
     </ListToDo>
   </Home>
   <Footer></Footer>
