@@ -9,7 +9,7 @@
         {{ category.name }}<small>({{ category.todos.length }})</small>
       </button>
       <button class="delBtn" @click="emit('deleteCategory', category.id)">
-        X
+        <font-awesome-icon icon="trash" />
       </button>
     </li>
   </ul>
@@ -68,6 +68,6 @@ small {
 }
 
 .delBtn:hover {
-  color: #e11d48;
+  color: #da385b;
 }
 </style>

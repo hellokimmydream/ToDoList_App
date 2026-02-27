@@ -1,4 +1,3 @@
-<!--html dans template , condition , boucle , evenement-->
 <template>
   <ul>
     <li v-for="todo in todos" v-bind:key="todo.id">
@@ -13,13 +12,12 @@
         {{ todo.text }}</span
       >
       <button class="btnDelete" @click="emit('removeTodo', todo.id)">
-        Delete
+        <font-awesome-icon icon="trash" />
       </button>
     </li>
   </ul>
 </template>
 
-<!-- js dans script-->
 <script setup>
 const props = defineProps({
   todos: { type: Array, required: true },
@@ -60,10 +58,10 @@ span {
 .btnDelete {
   background: transparent;
   color: #bbb;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .btnDelete:hover {
-  color: #e11d48;
+  color: #da385b;
 }
 </style>
