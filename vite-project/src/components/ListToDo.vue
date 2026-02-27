@@ -34,27 +34,36 @@ function removeTask(id) {
 
 <style lang="css" scoped>
 ul {
-  list-style-type: none;
+  list-style: none;
+  padding: 0;
   margin: 0;
-  padding: 10px;
 }
 
 li {
-  display: flex;
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
   align-items: center;
-  justify-content: space-between;
-  margin-left: 15px;
-  gap: 8px;
-  margin-top: 8px;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+li:hover {
+  background: #f7f7f7;
+}
+
+span {
+  font-size: 14px;
 }
 
 .btnDelete {
-  background-color: #e2e2e2b6;
-  max-height: 28px;
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
+  background: transparent;
+  color: #bbb;
+  font-size: 13px;
+}
+
+.btnDelete:hover {
+  color: #e11d48;
 }
 </style>

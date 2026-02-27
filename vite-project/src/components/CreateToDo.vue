@@ -1,4 +1,3 @@
-<!--html dans template , condition , boucle , evenement-->
 <template>
   <form class="formNewTache" @submit.prevent="soumettreToDo">
     <input v-model="newTodo" type="text" placeholder="Nouvelle tâche" />
@@ -6,7 +5,6 @@
   </form>
 </template>
 
-<!-- js dans script-->
 <script setup>
 import { ref } from "vue";
 
@@ -21,27 +19,24 @@ function soumettreToDo() {
 }
 </script>
 
-<style lang="css" scoped>
-.completed {
-  text-decoration: line-through;
-}
-
-.btnAdd {
-  margin-left: 10px;
-  background-color: #e2e2e2b6;
-  max-height: 28px;
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-}
-
+<style scoped>
 .formNewTache {
-  margin-top: 10px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  gap: 12px;
+  margin-top: 17px;
+  margin-bottom: 30px;
+}
+
+.formNewTache input {
+  flex: 1;
+}
+
+button {
+  background: #111;
+  color: white;
+}
+
+button:hover {
+  background: #333;
 }
 </style>

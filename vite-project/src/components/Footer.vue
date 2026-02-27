@@ -7,15 +7,12 @@
 <script setup></script>
 
 <style scoped>
-.footer {
-  padding: 20px;
-  background-color: #cacaca;
-  color: white;
-  margin-top: 50px;
-  max-height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+footer {
+  background-color: transparent;
+  padding: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: rgb(107, 106, 106);
 }
 
 .credit {

@@ -28,22 +28,46 @@ const emit = defineEmits(["selectCategory", "deleteCategory"]);
 ul {
   list-style: none;
   padding: 0;
-  margin: 10px 0 0 0;
+  margin-top: 20px;
 }
+
 .row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
   gap: 8px;
-  margin: 6px 0;
+  margin-bottom: 6px;
 }
-.catBtn {
-  flex: 1;
+
+.categoryBtn {
+  width: 100%;
   text-align: left;
-  padding: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
 }
-.catBtn.active {
-  font-weight: 700;
+
+.categoryBtn:hover {
+  background: #f1f1f1;
 }
+
+.categoryBtn.active {
+  background: #eaeafe;
+  color: #4f46e5;
+  font-weight: 500;
+}
+
+small {
+  color: #999;
+  margin-left: 6px;
+}
+
 .delBtn {
-  width: 38px;
+  background: transparent;
+  color: #bbb;
+  padding: 6px;
+}
+
+.delBtn:hover {
+  color: #e11d48;
 }
 </style>
