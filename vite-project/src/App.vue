@@ -5,6 +5,7 @@ import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 import CreateToDo from "./components/CreateToDo.vue";
 import ListToDo from "./components/ListToDo.vue";
+import CategoryList from "./components/CategoryList.vue";
 
 // les données
 const todos = ref([]);
@@ -25,6 +26,18 @@ function saveTodos() {
 // pour le btn delete de chaque todo
 function deleteTodo(index) {
   todos.value.splice(index, 1);
+
+  // envoit id categorie quand on ajoute une tache
+  function addTodo(categoryId, text) {
+    const category = categories.value.find(
+      (categorie) => categorie.id === categoryId,
+    );
+
+    category.todos.push({
+      id: Date.now(),
+      text,
+    });
+  }
 }
 </script>
 
@@ -32,7 +45,9 @@ function deleteTodo(index) {
   <Header></Header>
   <Home>
     <ListToDo>
-      <CreateToDo> </CreateToDo>
+      <CreateToDo>
+        <CategoryList :categories="categories" @add-todo="addTodo" />
+      </CreateToDo>
     </ListToDo>
   </Home>
   <Footer></Footer>

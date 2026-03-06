@@ -131,6 +131,14 @@ function toggleTodo(id, done) {
   min-height: 600px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .layout {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .sidebar {
@@ -138,9 +146,20 @@ function toggleTodo(id, done) {
   padding: 40px 30px;
   background: #fafafa;
 }
+@media (min-width: 768px) {
+  .sidebar {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
 .content {
   padding: 40px 30px;
+}
+
+@media (min-width: 768px) {
+  .content {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .category-title {

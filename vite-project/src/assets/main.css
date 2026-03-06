@@ -52,12 +52,12 @@ button {
 
 /* bouton principal */
 .btn-primary {
-  background: #111;
+  background: #acaab6;
   color: white;
 }
 
 .btn-primary:hover {
-  background: #333;
+  background: #918f9c;
 }
 
 /* bouton danger */
