@@ -1,29 +1,14 @@
 <script setup>
-import { ref, computed, onMounted, watch } from "vue";
-
-import ListToDo from "../components/ListToDo.vue";
-import CreateToDo from "../components/CreateToDo.vue";
+import { ref, onMounted, watch } from "vue";
 import CreateCategory from "../components/CreateCategory.vue";
 import CategoryList from "../components/CategoryList.vue";
 
 const STORAGE_KEY = "todo_categories_v1";
-
 const categories = ref([]);
-const selectedCategoryId = ref(null);
-
-const selectedCategory = computed(
-  () => categories.value.find((c) => c.id === selectedCategoryId.value) || null,
-);
 
 onMounted(() => {
   const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored) {
-    categories.value = JSON.parse(stored);
-
-    if (categories.value.length > 0) {
-      selectedCategoryId.value = categories.value[0].id;
-    }
-  }
+  if (stored) categories.value = JSON.parse(stored);
 });
 
 watch(
@@ -34,105 +19,68 @@ watch(
   { deep: true },
 );
 
+// Ajouter une nouvelle catégorie
 function addCategory(name) {
   const newCat = {
     id: Date.now(),
     name,
     todos: [],
   };
-
   categories.value.push(newCat);
-  selectedCategoryId.value = newCat.id;
 }
 
-function selectCategory(id) {
-  selectedCategoryId.value = id;
-}
+// Ajouter une nouvelle tâche dans une catégorie
+function addTodo(categoryId, text) {
+  const category = categories.value.find((c) => c.id === categoryId);
+  if (!category) return;
 
-function deleteCategory(id) {
-  categories.value = categories.value.filter((c) => c.id !== id);
-
-  if (selectedCategoryId.value === id) {
-    selectedCategoryId.value = categories.value.length
-      ? categories.value[0].id
-      : null;
-  }
-}
-
-function addTodo(text) {
-  if (!selectedCategory.value) return;
-
-  selectedCategory.value.todos.push({
+  category.todos.push({
     id: Date.now(),
-    text,
+    text, // ⚠️ Assurez-vous que ce champ est bien le texte
     done: false,
   });
 }
 
-function deleteTodo(id) {
-  if (!selectedCategory.value) return;
-
-  selectedCategory.value.todos = selectedCategory.value.todos.filter(
-    (t) => t.id !== id,
-  );
+// Supprimer une catégorie
+function deleteCategory(id) {
+  categories.value = categories.value.filter((c) => c.id !== id);
 }
 
-function toggleTodo(id, done) {
-  if (!selectedCategory.value) return;
+// Supprimer une tâche
+function deleteTodo(categoryId, todoId) {
+  const category = categories.value.find((c) => c.id === categoryId);
+  if (!category) return;
+  category.todos = category.todos.filter((t) => t.id !== todoId);
+}
 
-  const todo = selectedCategory.value.todos.find((t) => t.id === id);
+// Toggle checkbox
+function toggleTodo(categoryId, todoId, done) {
+  const category = categories.value.find((c) => c.id === categoryId);
+  if (!category) return;
+  const todo = category.todos.find((t) => t.id === todoId);
   if (todo) todo.done = done;
 }
 </script>
 
 <template>
   <div class="layout">
-    <aside class="sidebar">
-      <CreateCategory @addCategory="addCategory" />
-
-      <CategoryList
-        :categories="categories"
-        :selectedId="selectedCategoryId"
-        @selectCategory="selectCategory"
-        @deleteCategory="deleteCategory"
-      />
-    </aside>
-
-    <main class="content">
-      <div v-if="!selectedCategory" class="empty">
-        Crée une catégorie pour commencer.
-      </div>
-
-      <div v-else>
-        <h2 class="category-title">
-          {{ selectedCategory.name }}
-        </h2>
-
-        <CreateToDo @addTodo="addTodo" />
-
-        <ListToDo
-          :todos="selectedCategory.todos"
-          @removeTodo="deleteTodo"
-          @toggleTodo="toggleTodo"
-        />
-      </div>
-    </main>
+    <CreateCategory @addCategory="addCategory" />
+    <CategoryList
+      :categories="categories"
+      @addTodo="addTodo"
+      @deleteCategory="deleteCategory"
+    />
   </div>
 </template>
 
 <style scoped>
 .layout {
-  max-width: 1100px;
+  max-width: 600px;
   margin: 60px auto;
   background: white;
   border-radius: 16px;
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  min-height: 600px;
+  padding: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  width: 100%;
-  max-width: 100%;
 }
 
 @media (min-width: 768px) {

@@ -1,55 +1,49 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import Home from "./views/Home.vue";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
-import CreateToDo from "./components/CreateToDo.vue";
-import ListToDo from "./components/ListToDo.vue";
-import CategoryList from "./components/CategoryList.vue";
+import Home from "./views/Home.vue";
 
-// les données
-const todos = ref([]);
-// lire depuis le local storage au chargement
-// quand le composant se charge, regarde si todos existe, si oui = alors le transforme en tableau JS
+const categories = ref([]);
+
 onMounted(() => {
-  const storedTodos = localStorage.getItem("todos");
-  if (storedTodos) {
-    todos.value = JSON.parse(storedTodos);
+  const stored = localStorage.getItem("categories");
+  if (stored) {
+    categories.value = JSON.parse(stored);
   }
 });
 
-// fonction save todos
-function saveTodos() {
-  localStorage.setItem("todos", JSON.stringify(todos.value));
+function saveCategories() {
+  localStorage.setItem("categories", JSON.stringify(categories.value));
 }
 
-// pour le btn delete de chaque todo
-function deleteTodo(index) {
-  todos.value.splice(index, 1);
+function addCategory(name) {
+  categories.value.push({
+    id: Date.now(),
+    name,
+    todos: [],
+  });
+  saveCategories();
+}
 
-  // envoit id categorie quand on ajoute une tache
-  function addTodo(categoryId, text) {
-    const category = categories.value.find(
-      (categorie) => categorie.id === categoryId,
-    );
+function addTodo(categoryId, text) {
+  const category = categories.value.find((c) => c.id === categoryId);
+  if (!category) return;
 
-    category.todos.push({
-      id: Date.now(),
-      text,
-    });
-  }
+  category.todos.push({
+    id: Date.now(),
+    text,
+    done: false,
+  });
+
+  categories.value = [...categories.value];
+  saveCategories();
 }
 </script>
 
 <template>
   <Header></Header>
-  <Home>
-    <ListToDo>
-      <CreateToDo>
-        <CategoryList :categories="categories" @add-todo="addTodo" />
-      </CreateToDo>
-    </ListToDo>
-  </Home>
+  <Home> </Home>
   <Footer></Footer>
 </template>
 
@@ -60,9 +54,11 @@ function deleteTodo(index) {
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #71ff64aa);
 }
+
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 }
