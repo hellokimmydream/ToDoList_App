@@ -1,19 +1,11 @@
 <template>
   <ul>
-    <li v-for="todo in todos" v-bind:key="todo.id">
-      <input
-        type="checkbox"
-        v-bind:checked="todo.done"
-        @change="(e) => emit('toggleTodo', todo.id, e.target.checked)"
-      />
-      <span
-        v-bind:style="{ textDecoration: todo.done ? 'line-through' : 'none' }"
-      >
-        {{ todo.text }}</span
-      >
-      <button class="btnDelete" @click="emit('removeTodo', todo.id)">
-        <font-awesome-icon icon="trash" />
-      </button>
+    <li v-for="todo in todos" :key="todo.id">
+      <input type="checkbox" @change="emit('removeTodo', todo.id)" />
+
+      <span>
+        {{ todo.text }}
+      </span>
     </li>
   </ul>
 </template>
@@ -23,11 +15,7 @@ const props = defineProps({
   todos: { type: Array, required: true },
 });
 
-const emit = defineEmits(["removeTodo", "toggleTodo"]);
-
-function removeTask(id) {
-  emit("removeTodo", id);
-}
+const emit = defineEmits(["removeTodo"]);
 </script>
 
 <style lang="css" scoped>
@@ -59,8 +47,16 @@ span {
   background: transparent;
   color: #bbb;
   font-size: 14px;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  margin-left: auto;
 }
 
+/* pour eviter que le texte pousse le bouton hors écran */
+.todo span {
+  flex: 1;
+}
 .btnDelete:hover {
   color: #da385b;
 }

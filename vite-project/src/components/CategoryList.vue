@@ -4,9 +4,10 @@
       <!-- Header catégorie -->
       <div class="categoryHeader" @click="toggle(category.id)">
         <span>{{ category.name }}</span>
-        <span class="count">{{
-          category.todos ? category.todos.length : 0
-        }}</span>
+
+        <span class="count">
+          {{ category.todos ? category.todos.length : 0 }}
+        </span>
 
         <button
           class="delBtn"
@@ -20,23 +21,17 @@
       <div v-if="openCategory === category.id" class="todoContainer">
         <CreateToDo @addTodo="emit('addTodo', category.id, $event)" />
 
-        <ul class="todoList">
+        <transition-group name="fade" tag="ul" class="todoList">
           <li v-for="todo in category.todos" :key="todo.id" class="todo">
             <input
               type="checkbox"
-              v-model="todo.done"
-              @change="onTodoCheck(category.id, todo)"
               class="roundedCheckbox"
+              @change="emit('deleteTodo', category.id, todo.id)"
             />
-            <span :class="{ done: todo.done }">{{ todo.text }}</span>
-            <button
-              class="delBtn"
-              @click.stop="emit('deleteTodo', category.id, todo.id)"
-            >
-              🗑
-            </button>
+
+            <span>{{ todo.text }}</span>
           </li>
-        </ul>
+        </transition-group>
       </div>
     </li>
   </ul>
@@ -48,26 +43,14 @@ import CreateToDo from "./CreateToDo.vue";
 
 const props = defineProps({
   categories: { type: Array, required: true },
-  selectedId: { type: [Number, String, null], default: null },
 });
 
-const emit = defineEmits([
-  "selectCategory",
-  "deleteCategory",
-  "addTodo",
-  "deleteTodo",
-]);
+const emit = defineEmits(["deleteCategory", "addTodo", "deleteTodo"]);
+
 const openCategory = ref(null);
 
 function toggle(id) {
   openCategory.value = openCategory.value === id ? null : id;
-}
-
-// Supprimer automatiquement la tâche cochée
-function onTodoCheck(categoryId, todo) {
-  if (todo.done) {
-    emit("deleteTodo", categoryId, todo.id);
-  }
 }
 </script>
 
@@ -87,6 +70,11 @@ ul {
   transition: 0.2s;
 }
 
+.category:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Header catégorie */
 .categoryHeader {
   display: flex;
   justify-content: space-between;
@@ -95,50 +83,11 @@ ul {
   font-size: 16px;
 }
 
-.category:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
 .count {
   color: #999;
 }
 
-/* Container tâches */
-.todoContainer {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #eee;
-}
-
-.todoList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.todo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 0;
-}
-
-/* Checkbox arrondie et petite */
-input.roundedCheckbox[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  border-radius: 4px;
-  accent-color: #7f56d9; /* violet moderne */
-}
-
-/* Texte barre quand fait */
-.todo span.done {
-  text-decoration: line-through;
-  color: #aaa;
-  transition: all 0.2s;
-}
-
-/* Bouton supprimer tâche */
+/* Bouton suppression catégorie */
 .delBtn {
   background: transparent;
   color: #bbb;
@@ -150,5 +99,45 @@ input.roundedCheckbox[type="checkbox"] {
 
 .delBtn:hover {
   color: #da385b;
+}
+
+/* Container tâches */
+.todoContainer {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+}
+
+/* Liste tâches */
+.todoList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Ligne tâche */
+.todo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+/* Checkbox */
+input.roundedCheckbox[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  accent-color: #7f56d9;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.2s ease;
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translateX(10px);
 }
 </style>
