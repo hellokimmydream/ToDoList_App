@@ -9,9 +9,7 @@ const categories = ref([]);
 // Charger les données
 onMounted(() => {
   const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored) {
-    categories.value = JSON.parse(stored);
-  }
+  if (stored) categories.value = JSON.parse(stored);
 });
 
 // Sauvegarde automatique
@@ -59,8 +57,10 @@ function deleteTodo(categoryId, todoId) {
 
 <template>
   <div class="layout">
+    <!-- Zone création de liste -->
     <CreateCategory @addCategory="addCategory" />
 
+    <!-- Liste des catégories et tâches -->
     <CategoryList
       :categories="categories"
       @addTodo="addTodo"
@@ -71,12 +71,39 @@ function deleteTodo(categoryId, todoId) {
 </template>
 
 <style scoped>
+/* Container principal harmonisé */
 .layout {
-  max-width: 600px;
-  margin: 60px auto;
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  max-width: 650px;
+  margin: 50px auto;
+  padding: 24px;
+  border-radius: 24px;
+  background: #f4f3ff; /* violet très clair */
+  box-shadow: 0 12px 36px rgba(127, 86, 217, 0.15); /* effet flottant */
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Style responsive */
+@media (min-width: 768px) {
+  .layout {
+    max-width: 800px;
+    padding: 32px;
+    gap: 32px;
+  }
+}
+
+/* Harmonisation typographie */
+h2,
+span,
+input,
+button {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Pour les transitions douces */
+* {
+  transition: all 0.3s ease;
 }
 </style>

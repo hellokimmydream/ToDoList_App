@@ -1,7 +1,7 @@
 <template>
   <ul class="categoryList">
     <li v-for="category in categories" :key="category.id" class="category">
-      <!-- Header catégorie -->
+      <!-- Header pour les catégorie (contien les todo)) -->
       <div class="categoryHeader" @click="toggle(category.id)">
         <span>{{ category.name }}</span>
 
@@ -13,11 +13,11 @@
           class="delBtn"
           @click.stop="emit('deleteCategory', category.id)"
         >
-          🗑
+          <font-awesome-icon icon="trash" />
         </button>
       </div>
 
-      <!-- Liste des tâches -->
+      <!-- liste des tâches -->
       <div v-if="openCategory === category.id" class="todoContainer">
         <CreateToDo @addTodo="emit('addTodo', category.id, $event)" />
 
@@ -55,7 +55,7 @@ function toggle(id) {
 </script>
 
 <style scoped>
-/* Liste catégories */
+/* liste catégories */
 ul {
   list-style: none;
   padding: 0;
@@ -63,52 +63,58 @@ ul {
 }
 
 .category {
-  border-radius: 12px;
-  background: #f9f9f9;
-  margin-bottom: 12px;
-  padding: 12px;
-  transition: 0.2s;
+  border-radius: 16px;
+  background: #f4f3ff;
+  margin-bottom: 16px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 8px rgba(127, 86, 217, 0.15);
+  transition: all 0.3s ease;
 }
 
+/* survol moderne */
 .category:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 20px rgba(127, 86, 217, 0.25);
+  transform: translateY(-2px);
 }
 
 /* Header catégorie */
 .categoryHeader {
   display: flex;
   justify-content: space-between;
-  cursor: pointer;
-  font-weight: 500;
+  align-items: center;
+  font-weight: 600;
   font-size: 16px;
+  cursor: pointer;
+  padding-bottom: 8px;
 }
 
 .count {
-  color: #999;
+  color: #7f56d9;
+  font-weight: 500;
 }
 
-/* Bouton suppression catégorie */
+/* bouton supprimer catégorie */
 .delBtn {
-  background: transparent;
-  color: #bbb;
+  background: none;
   border: none;
-  padding: 4px;
-  font-size: 14px;
   cursor: pointer;
+  font-size: 16px;
+  color: #bbb;
+  transition: color 0.2s;
 }
 
 .delBtn:hover {
-  color: #da385b;
+  color: #ff4d6d;
 }
 
-/* Container tâches */
+/* container des tâches */
 .todoContainer {
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid rgba(127, 86, 217, 0.2); /* violet léger */
 }
 
-/* Liste tâches */
+/* liste tâches */
 .todoList {
   list-style: none;
   padding: 0;

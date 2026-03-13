@@ -5,10 +5,14 @@ import "./assets/main.css";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faPlusCircle, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlusCircle,
+  faUser,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPlusCircle, faUser, faTrash);
+library.add(faPlusCircle, faUser, faTrash, faPlus);
 
 const app = createApp(App);
 
