@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <p class="credit">© 2026 Camille Rais - ToDoList</p>
+    <p class="credit">© 2026 Camille Rais - ToDoListApp</p>
   </footer>
 </template>
 
