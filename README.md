@@ -45,3 +45,14 @@ npm run build
 ```sh
 npm run lint
 ```
+
+
+### Tester dans le navigateur / Buil App
+```sh
+npm run build
+```
+
+### Lance le serveur du preview
+```sh
+npm run preview
+```
