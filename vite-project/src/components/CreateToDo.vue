@@ -32,16 +32,15 @@ function soumettreToDo() {
   max-width: 400px;
   margin-top: 20px;
   margin-bottom: 30px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .input-with-button input {
   width: 100%;
-  padding: 14px 50px 14px 18px; /* assez large à droite pour bouton */
+  padding: 14px 50px 14px 18px;
   font-size: 16px;
-  border-radius: 9999px; /* pill shape */
+  border-radius: 9999px;
   border: none;
-  background: #f4f3ff; /* violet très clair */
+  background: #f4f3ff;
   box-shadow: 0 2px 6px rgb(127 86 217 / 0.15);
   transition:
     box-shadow 0.3s ease,
@@ -61,10 +60,10 @@ function soumettreToDo() {
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background: #7f56d9; /* violet saturé */
+  background: #7f56d9;
   border: none;
   color: white;
   cursor: pointer;

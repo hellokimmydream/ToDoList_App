@@ -1,5 +1,5 @@
 <template>
-  <h2 class="monTitre">Mes listes</h2>
+  <h2 class="monTitre">ToDo</h2>
   <form class="input-with-button" @submit.prevent="submit">
     <input
       v-model="name"
@@ -34,7 +34,7 @@ function submit() {
 <style scoped>
 .monTitre {
   margin-bottom: 10px !important;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
   color: #333;
 }
@@ -44,7 +44,7 @@ function submit() {
   width: 100%;
   max-width: 400px;
   margin-bottom: 30px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .input-with-button input {
@@ -73,8 +73,8 @@ function submit() {
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: #7f56d9;
   border: none;

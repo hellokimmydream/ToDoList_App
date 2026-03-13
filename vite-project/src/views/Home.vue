@@ -41,7 +41,7 @@ function addTodo(categoryId, text) {
   });
 }
 
-// Supprimer une catégorie
+// supprimer une catégorie
 function deleteCategory(id) {
   categories.value = categories.value.filter((c) => c.id !== id);
 }
@@ -53,11 +53,19 @@ function deleteTodo(categoryId, todoId) {
 
   category.todos = category.todos.filter((t) => t.id !== todoId);
 }
+
+// tache todo comme important
+function toggleImportant(categoryId, todoId) {
+  const category = categories.value.find((c) => c.id === categoryId);
+  if (!category) return;
+  const todo = category.todos.find((t) => t.id === todoId);
+  if (!todo) todo.important = !todo.important;
+}
 </script>
 
 <template>
   <div class="layout">
-    <!-- Zone création de liste -->
+    <!-- création de liste -->
     <CreateCategory @addCategory="addCategory" />
 
     <!-- Liste des catégories et tâches -->
@@ -82,7 +90,6 @@ function deleteTodo(categoryId, todoId) {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Style responsive */
@@ -94,12 +101,12 @@ function deleteTodo(categoryId, todoId) {
   }
 }
 
-/* Harmonisation typographie */
+/* harmonisation typo */
 h2,
 span,
 input,
 button {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 /* Pour les transitions douces */
